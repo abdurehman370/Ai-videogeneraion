@@ -28,8 +28,9 @@ export async function GET(req: NextRequest) {
       error: data.error
     });
 
-  } catch (err: any) {
-    console.error('Video status check error:', err);
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+    console.error('Video status check error:', errorMessage);
     return NextResponse.json({ 
       error: 'Failed to check video status',
       status: 'error'
